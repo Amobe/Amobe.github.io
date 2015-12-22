@@ -1,0 +1,70 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="word-touch.html">
+
+<dom-module id="word-row">
+    <template>
+        <div>
+            <div class="header">
+                <span>{{keySpell}}</span>
+            </div>
+            <div class="content">
+                <template is="dom-repeat" items="{{kanaList}}" as="kana">
+                    <word-touch kana="[[kana]]"></word-touch>
+                </template>
+            </div>
+        </div>
+    </template>
+    <style is= "word-row">
+        div {
+            display: table;
+            background: #333;
+            padding-top: 10px;
+            padding-bottom: 5px;
+        }
+
+        div.header {
+            width: 100%;
+            color: #BBB;
+            text-align: center;
+            font-size: 18pt;
+        }
+
+        div.content {
+        }
+
+        word-touch {
+            display: table-row;
+        }
+
+    </style>
+    <script>
+        WordRow = Polymer({
+            is: "word-row",
+            properties: {
+                kanaRow: Object,
+                keySpell: String,
+                kanaList: {
+                    type: Array,
+                    notify: true
+                }
+            },
+            hostAttributes: {
+            },
+            ready: function() {
+                logging(this.kanaRow);
+                this.keySpell = this.kanaRow.keySpell;
+                this.kanaList = this.kanaRow.kanaList;
+            },
+            factoryImpl: function(kanaRow) {
+                this.kanaRow = kanaRow;
+                this.keySpell = kanaRow.keySpell;
+                this.kanaList = kanaRow.kanaList;
+            },
+            addKana: function(kana) {
+                this.push('kanaList', kana);
+            }
+        });
+    </script>
+</dom-module>
+

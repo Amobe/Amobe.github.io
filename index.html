@@ -1,1 +1,52 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <title>JPTrain - 五十音選字器</title>
+    <!-- Web Font kit  -->
+    <script src="https://use.typekit.net/ixs0qcu.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <!-- Polymer Lib -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <!-- Common Lib -->
+    <link rel="import" href="common/element/word-chain.html">
+    <link rel="import" href="common/element/word-row.html">
+    <link rel="import" href="common/element/word-table.html">
+    <link rel="import" href="common/element/word-touch.html">
+    <link rel="stylesheet" href="common/css/screen.css">
+</head>
+<body>
+    <div class="master-panel">
+        <div class="text-panel">
+            <div class="header-row">
+                <div class="header-cell">
+                    <img class="icon" src="common/img/Head.jpg">
+                </div>
+                <div class="header-cell">
+                    <h1 class="header">JPTrain</h1>
+                    <h1 class="header">五十音選字器</h1>
+                </div>
+            </div>
+            <div class="content-row" style="clear: both;">
+                <word-chain id="word-chain"></word-chain>
+            </div>
+        </div>
+        <div class="word-panel">
+            <div id="container-seion">
+            </div>
+            <div id="container-dakuon">
+            </div>
+            <div id="container-yoon">
+            </div>
+        </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="common/js/words.js" ></script>
+    <script>
+        $("#container-seion").append(new WordTable(hiraganaSeionTable));
+        $("#container-dakuon").append(new WordTable(hiraganaDakuonTable));
+        $("#container-yoon").append(new WordTable(hiraganaYoonTable));
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 5, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../executes/fire.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 9, ../../sass/screen.sass */
+body {
+  background: #EEE;
+}
+
+/* line 12, ../../sass/screen.sass */
+.master-panel {
+  display: table-row;
+}
+
+/* line 15, ../../sass/screen.sass */
+.text-panel {
+  background-color: #DDD;
+  display: table-cell;
+  position: fixed;
+  left: 0;
+  width: 500px;
+  height: 100%;
+  float: left;
+}
+
+/* line 24, ../../sass/screen.sass */
+.header-row {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  height: auto;
+}
+
+/* line 31, ../../sass/screen.sass */
+.header-cell {
+  display: inline-block;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* line 36, ../../sass/screen.sass */
+.icon {
+  width: auto;
+  height: auto;
+  float: left;
+}
+
+/* line 41, ../../sass/screen.sass */
+h1.header {
+  color: #333;
+  font-size: 32pt;
+  font-weight: bold;
+  margin: 0 20px;
+  float: left;
+}
+
+/* line 48, ../../sass/screen.sass */
+.content-row {
+  padding: 0 20px;
+}
+
+/* line 51, ../../sass/screen.sass */
+.word-panel {
+  background-color: #333;
+  display: table-cell;
+  position: fixed;
+  left: 500px;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  -webkit-box-shadow: 0 -5px 40px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0 -5px 40px 0px rgba(0, 0, 0, 0.75);
+  -box-shadow: 0 -5px 40px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* line 63, ../../sass/screen.sass */
+#footer {
+  background-color: #333;
+  min-width: 100%;
+  display: block;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  min-height: 50px;
+  -webkit-box-shadow: 0 -5px 40px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0 -5px 40px 0px rgba(0, 0, 0, 0.75);
+  -box-shadow: 0 -5px 40px 0px rgba(0, 0, 0, 0.75);
+}

@@ -1,0 +1,84 @@
+
+<link rel="import" href="word-chain.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="word-touch">
+    <template>
+        <div class$="{{_isEmptyKana(kana)}}">
+            <paper-button raised class on-click="_inputKana">
+                <div class="word">{{kana.word}}</div>
+                <div class="spell">{{kana.spell}}</div
+            </paper-button>
+        </div>
+    </template>
+    <style is= "word-touch">
+        paper-button {
+            width: 50px;
+            padding: 0px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        paper-button:hover div.word {
+            background: #BBB !important;
+        }
+
+        paper-button:hover div.spell {
+            background: #999 !important;
+        }
+
+        div.empty-kana {
+            visibility: hidden;
+        }
+
+        div.word {
+            background: #AAA !important;
+            font-size: 24pt;
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        div.spell {
+            background: #888 !important;
+            font-size: 18pt;
+            width: 100%;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    </style>
+    <script>
+        WordTouch = Polymer({
+            is: "word-touch",
+            properties: {
+                kana: Object
+            },
+            hostAttributes: {
+            },
+            ready: function() {
+                logging(this.kana);
+                //this.$.val.innerHTML = this.kana.spell;
+                this.$.innerTEXT = this.kana.spell;
+            }, 
+            factoryImpl: function(kana) {
+                this.kana = kana;
+            },
+            _isEmptyKana: function(kana) {
+                if (checkObjectIsEmptyKana(kana))
+                    return " empty-kana";
+                return "";
+            },
+            _inputKana: function(e) {
+                var wordChain = document.querySelector('#word-chain');
+                console.log(this.kana);
+                wordChain.AddWord(this.kana.word);
+            }
+        });
+    </script>
+</dom-module>
+

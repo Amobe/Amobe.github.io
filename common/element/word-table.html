@@ -1,0 +1,52 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="word-row.html">
+
+<dom-module id="word-table">
+    <template>
+        <div class="word-table">
+            <template is="dom-repeat" items="{{_toArray(kanaRowList)}}" as="kanaRow">
+                <div class="word-table-cell">
+                    <word-row kana-row="[[kanaRow.kanaList]]"></word-row>
+                </div>
+            </template>
+        </div>
+    </template>
+    <style is= "word-table">
+        div.word-table {
+            display: table;
+        }
+
+        div.word-table-cell {
+            display: table-cell;
+        }
+    </style>
+    <script>
+        WordTable = Polymer({
+            is: "word-table",
+            properties: {
+                kanaRowList: {
+                    type: Array,
+                    notify: true
+                }
+            },
+            hostAttributes: {
+            },
+            ready: function() {
+                logging(this.kanaRowList);
+            }, 
+            factoryImpl: function(kanaTable) {
+                this.kanaTable = kanaTable;
+                this.kanaRowList = kanaTable.kanaRowList;
+            },
+            _toArray: function(obj) {
+                return Object.keys(obj).map(function(key) {
+                    return {
+                        keySpell: key,
+                        kanaList: obj[key]
+                    };
+                });
+            }
+        });
+    </script>
+</dom-module>

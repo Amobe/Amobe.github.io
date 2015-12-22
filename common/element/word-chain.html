@@ -1,0 +1,34 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="word-chain">
+    <template>
+        <paper-input id="input" label="Selected Kana" no-label-float></paper-input>
+    </template>
+    <style>
+        paper-input {
+            --paper-input-container-input: {
+                color: #333;
+                font-size: 24pt;
+            };
+            --paper-input-container-label: {
+                font-size: 24pt;
+            };
+        }
+    </style>
+    <script>
+        WordChain = Polymer({
+            is: "word-chain",
+            properties: {
+            },
+            hostAttributes: {
+            },
+            AddWord: function(word) {
+                $("#word-chain paper-input")[0].value += word;
+                console.log(word);
+                //this.$.input.innerText += word;
+            }
+        });
+    </script>
+</dom-module>
