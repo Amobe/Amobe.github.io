@@ -14,7 +14,7 @@
     </template>
     <style is= "word-touch">
         paper-button {
-            width: 50px;
+            min-width: 4.14em;
             padding: 0px;
             margin: 5px;
             border-radius: 5px;
@@ -34,7 +34,7 @@
 
         div.word {
             background: #AAA !important;
-            font-size: 24pt;
+            font-size: 20pt;
             width: 100%;
             padding-top: 5px;
             padding-bottom: 5px;
@@ -44,7 +44,7 @@
 
         div.spell {
             background: #888 !important;
-            font-size: 18pt;
+            font-size: 16pt;
             width: 100%;
             padding-bottom: 5px;
             padding-top: 5px;
@@ -75,8 +75,7 @@
             },
             _inputKana: function(e) {
                 var wordChain = document.querySelector('#word-chain');
-                console.log(this.kana);
-                wordChain.AddWord(this.kana.word);
+                wordChain.AddWord(this.kana);
             }
         });
     </script>
