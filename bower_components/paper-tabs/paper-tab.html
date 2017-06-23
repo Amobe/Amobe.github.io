@@ -6,9 +6,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<link rel="import" href="../polymer/polymer.html">
+--><link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-behaviors/iron-button-state.html">
 <link rel="import" href="../iron-behaviors/iron-control-state.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
@@ -37,23 +35,28 @@ Custom property | Description | Default
 `--paper-tab-content` | Mixin applied to the tab content | `{}`
 `--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
 
+This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
+
 -->
 
 <dom-module id="paper-tab">
   <template>
     <style>
       :host {
-        @apply(--layout-inline);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
-        @apply(--layout-flex);
+        @apply --layout-inline;
+        @apply --layout-center;
+        @apply --layout-center-justified;
+        @apply --layout-flex-auto;
 
         position: relative;
         padding: 0 12px;
         overflow: hidden;
         cursor: pointer;
+        vertical-align: middle;
 
-        @apply(--paper-tab);
+        @apply --paper-font-common-base;
+        @apply --paper-tab;
       }
 
       :host(:focus) {
@@ -69,16 +72,16 @@ Custom property | Description | Default
         transform: translateZ(0);
           -webkit-transform: translateZ(0);
         transition: opacity 0.1s cubic-bezier(0.4, 0.0, 1, 1);
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        @apply(--layout-flex-auto);
-        @apply(--paper-tab-content);
+        @apply --layout-horizontal;
+        @apply --layout-center-center;
+        @apply --layout-flex-auto;
+        @apply --paper-tab-content;
       }
 
       :host(:not(.iron-selected)) > .tab-content {
         opacity: 0.8;
 
-        @apply(--paper-tab-content-unselected);
+        @apply --paper-tab-content-unselected;
       }
 
       :host(:focus) .tab-content {
@@ -87,18 +90,18 @@ Custom property | Description | Default
       }
 
       paper-ripple {
-        color: var(--paper-tab-ink, --paper-yellow-a100);
+        color: var(--paper-tab-ink, var(--paper-yellow-a100));
       }
 
-      .tab-content > ::content > a {
-        @apply(--layout-flex)
+      .tab-content > ::slotted(a) {
+        @apply --layout-flex-auto;
 
         height: 100%;
       }
     </style>
 
     <div class="tab-content">
-      <content></content>
+      <slot></slot>
     </div>
   </template>
 
@@ -112,18 +115,27 @@ Custom property | Description | Default
         Polymer.PaperRippleBehavior
       ],
 
+      properties: {
+
+        /**
+         * If true, the tab will forward keyboard clicks (enter/space) to
+         * the first anchor element found in its descendants
+         */
+        link: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        }
+
+      },
+
       hostAttributes: {
         role: 'tab'
       },
 
       listeners: {
-        down: '_updateNoink'
-      },
-
-      ready: function() {
-        var ripple = this.getRipple();
-        ripple.initialOpacity = 0.95;
-        ripple.opacityDecayVelocity = 0.98;
+        down: '_updateNoink',
+        tap: '_onTap'
       },
 
       attached: function() {
@@ -137,7 +149,26 @@ Custom property | Description | Default
 
       _updateNoink: function() {
         this.noink = !!this.noink || !!this._parentNoink;
+      },
+
+      _onTap: function(event) {
+        if (this.link) {
+          var anchor = this.queryEffectiveChildren('a');
+
+          if (!anchor) {
+            return;
+          }
+
+          // Don't get stuck in a loop delegating
+          // the listener from the child anchor
+          if (event.target === anchor) {
+            return;
+          }
+
+          anchor.click();
+        }
       }
+
     });
   </script>
 </dom-module>

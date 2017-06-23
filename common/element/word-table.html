@@ -1,52 +1,57 @@
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="word-row.html">
 
 <dom-module id="word-table">
     <template>
         <div class="word-table">
-            <template is="dom-repeat" items="{{_toArray(kanaRowList)}}" as="kanaRow">
+            <template is="dom-repeat" items="{{_toArray(_kanaRowList)}}" as="kanaRow">
                 <div class="word-table-cell">
                     <word-row kana-row="[[kanaRow.kanaList]]"></word-row>
                 </div>
             </template>
         </div>
-    </template>
-    <style is= "word-table">
-        div.word-table {
-            display: table;
-        }
 
-        div.word-table-cell {
-            display: table-cell;
-        }
-    </style>
+        <style is="word-table">
+            :root {
+                vertical-align: middle;
+                margin: 0 auto;
+            }
+
+            div.word-table {
+                display: table;
+            }
+
+            div.word-table-cell {
+                display: table-cell;
+            }
+        </style>
+    </template>
     <script>
-        WordTable = Polymer({
-            is: "word-table",
-            properties: {
-                kanaRowList: {
-                    type: Array,
-                    notify: true
-                }
-            },
-            hostAttributes: {
-            },
-            ready: function() {
-                logging(this.kanaRowList);
-            }, 
-            factoryImpl: function(kanaTable) {
-                this.kanaTable = kanaTable;
-                this.kanaRowList = kanaTable.kanaRowList;
-            },
-            _toArray: function(obj) {
+        class WordTable extends Polymer.Element {
+            static get is() { return 'word-table'; }
+
+            constructor(kanaTable) {
+                super();
+                this._kanaTable = kanaTable;
+                this._kanaRowList = kanaTable.kanaRowList;
+            }
+
+            ready() {
+                super.ready();
+                logging(this._kanaRowList);
+            }
+
+            _toArray(obj) {
                 return Object.keys(obj).map(function(key) {
-                    return {
+                    var kana = {
                         keySpell: key,
                         kanaList: obj[key]
                     };
+                    return kana;
                 });
             }
-        });
+        }
+
+        customElements.define(WordTable.is, WordTable);
     </script>
 </dom-module>

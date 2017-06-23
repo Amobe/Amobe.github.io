@@ -1,74 +1,118 @@
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="word-chain">
     <template>
-        <paper-input id="word-input" label="Kana" no-label-float></paper-input>
-        <paper-input id="spell-input" label="Spell" no-label-float></paper-input>
+        <table class="input-group">
+            <tbody><tr>
+                <td><paper-input id="word-input" label="Kana" value="" no-label-float=""></paper-input></td>
+                <td><paper-button raised="" class="copy" on-click="_copyKana"><iron-icon icon="icons:content-copy"></iron-icon></paper-button></td>
+            </tr>
+            <tr>
+                <td><paper-input id="spell-input" label="Spell" value="" no-label-float=""></paper-input></td>
+                <td><paper-button raised="" class="copy" on-click="_copySpell"><iron-icon icon="icons:content-copy"></iron-icon></paper-button></td>
+            </tr>
+        </tbody></table>
 
         <table class="button-group">
-            <tr>
-                <td><paper-button raised class="exchange" disabled>平 ⇋ 片</paper-button></td>
+            <tbody><tr>
+                <td><paper-button raised="" class="exchange" disabled="">平 ⇋ 片</paper-button></td>
                 <td class="button-gap"></td>
-                <td><paper-button raised class="clear" on-click="_clearInput">Clear</paper-button></td>
+                <td><paper-button raised="" class="clear" on-click="_clearInput">Clear</paper-button></td>
             </tr>
-        </table>
-    </template>
-    <style>
-        paper-input {
-            margin: 0;
-            --paper-input-container-input: {
-                color: #333;
-                line-height: 29px;
-                font-size: 18pt;
-            };
-            --paper-input-container-label: {
-                line-height: 29px;
-                font-size: 18pt;
-            };
-        }
+        </tbody></table>
 
-        .button-group {
-            width: 100%;
-        }
-
-        .button-gap {
-            min-width: 10px;
-            max-width: 10px;
-            width:10px;
-        }
-
-        .exchange {
-            margin: 0;
-            width: 100%;
-            background-color: #CCC;
-            color: #333;
-        }
-
-        .clear {
-            margin: 0;
-            width: 100%;
-            background-color: var(--paper-indigo-500);
-            color: #EEE;
-        }
-    </style>
-    <script>
-        WordChain = Polymer({
-            is: "word-chain",
-            properties: {
-            },
-            hostAttributes: {
-            },
-            AddWord: function(kana) {
-                $("#word-chain paper-input")[0].value += kana.word;
-                $("#word-chain paper-input")[1].value += kana.spell;
-            },
-            _clearInput: function(e) {
-                $("#word-chain paper-input")[0].value = "";
-                $("#word-chain paper-input")[1].value = "";
+        <style>
+            paper-input {
+                margin: 0;
+                --paper-input-container-input: {
+                    font-family: "Sawarabi Mincho";
+                    color: #333;
+                    line-height: 29px;
+                    font-size: 18pt;
+                };
+                --paper-input-container-label: {
+                    font-family: "Sawarabi Mincho";
+                    line-height: 29px;
+                    font-size: 18pt;
+                };
             }
-        });
+
+            .input-group {
+                width: 100%;
+            }
+
+            .input-group td {
+                width: 100%;
+            }
+
+            .input-group td paper-button {
+                margin: 0;
+                margin-left: 0.58em;
+                padding: 5px 0;
+                min-width: 60px;
+            }
+
+            .button-group {
+                width: 100%;
+            }
+
+            .button-gap {
+                min-width: 10px;
+                max-width: 10px;
+                width:10px;
+            }
+
+            .copy {
+                color: #2C3E50;
+            }
+
+            .exchange {
+                margin: 0;
+                width: 100%;
+                background-color: #CCC;
+                color: #333;
+            }
+
+            .clear {
+                margin: 0;
+                width: 100%;
+                background-color: var(--paper-indigo-500);
+                color: #EEE;
+            }
+        </style>
+    </template>
+    <script>
+        class WordChain extends Polymer.Element {
+            static get is() { return 'word-chain'; }
+            ready() {
+                super.ready();
+                this._wordInput = this.root.querySelector("#word-input");
+                this._wordInput.value = '';
+                this._spellInput = this.root.querySelector("#spell-input");
+                this._spellInput.value = '';
+            }
+            AddWord(kana) {
+                if (!kana) return;
+                this._wordInput.value += kana.word;
+                this._spellInput.value += kana.spell;
+            }
+            _clearInput(e) {
+                this._wordInput.value = '';
+                this._spellInput.value = '';
+            }
+            _copyKana() {
+                clipboard.copy(this._wordInput.value);
+            }
+            _copySpell() {
+                clipboard.copy(this._spellInput.value);
+            }
+        }
+
+        customElements.define(WordChain.is, WordChain);
     </script>
 </dom-module>

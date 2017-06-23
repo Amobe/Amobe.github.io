@@ -1,4 +1,3 @@
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="word-touch.html">
 
@@ -14,57 +13,64 @@
                 </template>
             </div>
         </div>
+
+        <style is="word-row">
+            div {
+                display: table;
+                background: #333;
+                padding-top: 10px;
+                padding-bottom: 5px;
+            }
+
+            div.header {
+                width: 100%;
+                color: #BBB;
+                text-align: center;
+                font-size: 16pt;
+            }
+
+            div.content {
+            }
+
+            word-touch {
+                display: table-row;
+            }
+
+        </style>
     </template>
-    <style is= "word-row">
-        div {
-            display: table;
-            background: #333;
-            padding-top: 10px;
-            padding-bottom: 5px;
-        }
-
-        div.header {
-            width: 100%;
-            color: #BBB;
-            text-align: center;
-            font-size: 16pt;
-        }
-
-        div.content {
-        }
-
-        word-touch {
-            display: table-row;
-        }
-
-    </style>
     <script>
-        WordRow = Polymer({
-            is: "word-row",
-            properties: {
-                kanaRow: Object,
-                keySpell: String,
-                kanaList: {
-                    type: Array,
-                    notify: true
+        class WordRow extends Polymer.Element {
+            static get is() { return 'word-row'; }
+            static get properties() {
+                return {
+                    kanaRow: Object,
+                    keySpell: String,
+                    kanaList: {
+                        type: Array,
+                        notify: true
+                    }
                 }
-            },
-            hostAttributes: {
-            },
-            ready: function() {
+            }
+            constructor(kanaRow) {
+                super();
+                if (kanaRow) {
+                    this.kanaRow = kanaRow;
+                    this.keySpell = kanaRow.keySpell;
+                    this.kanaList = kanaRow.kanaList;
+                }
+            }
+            ready() {
+                super.ready();
                 logging(this.kanaRow);
                 this.keySpell = this.kanaRow.keySpell;
                 this.kanaList = this.kanaRow.kanaList;
-            },
-            factoryImpl: function(kanaRow) {
-                this.kanaRow = kanaRow;
-                this.keySpell = kanaRow.keySpell;
-                this.kanaList = kanaRow.kanaList;
-            },
-            addKana: function(kana) {
+            }
+            addKana() {
                 this.push('kanaList', kana);
             }
-        });
+        }
+
+        customElements.define(WordRow.is, WordRow);
     </script>
 </dom-module>
 

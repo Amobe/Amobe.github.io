@@ -6,19 +6,14 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<link rel="import" href="../polymer/polymer.html">
+--><link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-behaviors/iron-button-state.html">
 <link rel="import" href="paper-ripple-behavior.html">
 
 <script>
-
   /** @polymerBehavior Polymer.PaperButtonBehavior */
   Polymer.PaperButtonBehaviorImpl = {
-
     properties: {
-
       /**
        * The z-depth of this element, from 0-5. Setting to 0 will remove the
        * shadow, and each increasing number greater than 0 will be "deeper"
@@ -33,7 +28,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         reflectToAttribute: true,
         readOnly: true
       }
-
     },
 
     observers: [
@@ -60,7 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _computeKeyboardClass: function(receivedFocusFromKeyboard) {
-      this.classList.toggle('keyboard-focus', receivedFocusFromKeyboard);
+      this.toggleClass('keyboard-focus', receivedFocusFromKeyboard);
     },
 
     /**
@@ -71,7 +65,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     _spaceKeyDownHandler: function(event) {
       Polymer.IronButtonStateImpl._spaceKeyDownHandler.call(this, event);
-      if (this.hasRipple()) {
+      // Ensure that there is at most one ripple when the space key is held down.
+      if (this.hasRipple() && this.getRipple().ripples.length < 1) {
         this._ripple.uiDownAction();
       }
     },
@@ -88,7 +83,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._ripple.uiUpAction();
       }
     }
-
   };
 
   /** @polymerBehavior */
@@ -98,5 +92,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.PaperRippleBehavior,
     Polymer.PaperButtonBehaviorImpl
   ];
-
 </script>

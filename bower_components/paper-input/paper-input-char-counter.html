@@ -6,9 +6,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<link rel="import" href="../polymer/polymer.html">
+--><link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="paper-input-addon-behavior.html">
 
@@ -17,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 shows the number of characters entered in the input and the max length if it is specified.
 
     <paper-input-container>
-      <input is="iron-input" maxlength="20">
+      <input maxlength="20">
       <paper-input-char-counter></paper-input-char-counter>
     </paper-input-container>
 
@@ -37,8 +35,12 @@ Custom property | Description | Default
         display: inline-block;
         float: right;
 
-        @apply(--paper-font-caption);
-        @apply(--paper-input-char-counter);
+        @apply --paper-font-caption;
+        @apply --paper-input-char-counter;
+      }
+
+      :host([hidden]) {
+        display: none !important;
       }
 
       :host-context([dir="rtl"]) {
@@ -65,6 +67,17 @@ Custom property | Description | Default
       }
     },
 
+    /**
+     * This overrides the update function in PaperInputAddonBehavior.
+     * @param {{
+     *   inputElement: (Element|undefined),
+     *   value: (string|undefined),
+     *   invalid: boolean
+     * }} state -
+     *     inputElement: The input element.
+     *     value: The input value.
+     *     invalid: True if the input value is invalid.
+     */
     update: function(state) {
       if (!state.inputElement) {
         return;
@@ -72,13 +85,13 @@ Custom property | Description | Default
 
       state.value = state.value || '';
 
-      // Account for the textarea's new lines.
-      var str = state.value.replace(/(\r\n|\n|\r)/g, '--').length;
+      var counter = state.value.toString().length.toString();
 
       if (state.inputElement.hasAttribute('maxlength')) {
-        str += '/' + state.inputElement.getAttribute('maxlength');
+        counter += '/' + state.inputElement.getAttribute('maxlength');
       }
-      this._charCounterStr = str;
+
+      this._charCounterStr = counter;
     }
   });
 </script>
